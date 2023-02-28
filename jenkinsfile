@@ -1,0 +1,59 @@
+pipeline {
+  options {
+    timeout(time: 15, unit: 'MINUTES')
+  }
+
+  agent {
+    dockerfile {
+      filename 'Dockerfile'
+              dir      '.'
+    }
+  }
+
+  parameters {
+    choice(name: 'SERVICE', choices: [
+      '',
+      'NotPush',
+      'Push',
+    ])
+  }
+
+  environment {
+    INSTANCE = 'Django'
+    NAMESPACE = 'Demo'
+    TAG = new Date().format('yyyyMMddHHmmss')
+  }
+
+  stages {
+    stage('Prepare') {
+      steps {
+         script {
+            currentBuild.displayName = "${INSTANCE}-${NAMESPACE}/${params.PushOrNot}"
+          }
+      }
+    }
+    stage('Build') {
+        steps {
+            sh 'echo Build Stage ...'
+            sh ' docker ps'
+        }
+    }
+    stage('Test'){
+        steps {
+            sh 'echo curl result'
+            sh 'curl http://127.0.0.1:8001'
+        }
+    }
+    stage('Push') {
+      when {
+        expression {
+          return params.SERVICE.equals('Push')
+        }
+      }
+      steps {
+        sh 'push is ready'
+      }
+    }
+
+  }
+}
