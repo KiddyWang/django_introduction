@@ -35,7 +35,8 @@ pipeline {
     stage('Build') {
         steps {
             sh 'starting Build Stage ...'
-            sh ' docker ps'
+            sh ' docker build -t demo1 .'
+            sh ' docker images'
         }
     }
     stage('Test'){
