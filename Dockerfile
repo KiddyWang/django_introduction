@@ -1,15 +1,13 @@
 # test stage
 FROM flesh222/djangomin:v1 AS test
 LABEL application=app
-WORKDIR /app
+WORKDIR /django_introduction
 EXPOSE 8001
 
 # Copy source code
-RUN mkdir django_introduction
-COPY ../* .
-RUN pwd
-
+COPY . .
+RUN uwsgi /django_introduction/uwsgi.ini
 # RUN App
-RUN ["uwsgi", "/django_introduction/uwsgi.ini"]
-
+#ENTRYPOINT ["uwsgi", "/django_introduction/uwsgi.ini"]
+#ENTRYPOINT ["ps", "http://127.0.0.1:8001"]
 

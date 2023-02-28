@@ -31,7 +31,7 @@ def get_index_page(request):
         print('page parm', page)
     all_article = Article.objects.all()
 
-    paginator = Paginator(all_article, 3)
+    paginator = Paginator(all_article, 6)
     page_num = paginator.num_pages
     print('page num', page_num)
 
