@@ -34,12 +34,13 @@ pipeline {
     }
     stage('Build') {
         steps {
-            sh 'echo Build Stage ...'
+            sh 'starting Build Stage ...'
             sh ' docker ps'
         }
     }
     stage('Test'){
         steps {
+            sh 'starting Test Stage'
             sh 'echo curl result'
             sh 'curl http://127.0.0.1:8001'
         }
@@ -51,6 +52,7 @@ pipeline {
         }
       }
       steps {
+        sh 'starting Push Stage'
         sh 'push is ready'
       }
     }
