@@ -8,7 +8,7 @@ EXPOSE 8001
 # copy source code
 COPY . .
 RUN uwsgi /django_introduction/uwsgi.ini
-CMD [ "sh" ]
+
 # runApp
 #ENTRYPOINT ["uwsgi", "/django_introduction/uwsgi.ini"]
 #ENTRYPOINT ["ps", "http://127.0.0.1:8001"]
